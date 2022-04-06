@@ -62,3 +62,134 @@ PART TWO :
     +-----------------------+
     1 row in set (0.02 sec)
 
+PART THREE:
+
+1. select pokemons.id, pokemons.name, types.name FROM pokemons JOIN types ON types.id=pokemons.primary_type;
+2. select pokemons.id, pokemons.name, types.name FROM pokemons JOIN types ON types.id=pokemons.secondary_type WHERE pokemons.name = 'Rufflet';
+   +-----+---------+--------+
+   | id  | name    | name   |
+   +-----+---------+--------+
+   | 644 | Rufflet | Flying |
+   +-----+---------+--------+
+3.
+
+    SELECT p.name FROM pokemon_trainer pt JOIN pokemons p ON pt.pokemon_id = p.id WHERE pt.trainerID = '303';
+    +-----------+
+    | name      |
+    +-----------+
+    | Wailord   |
+    | Vileplume |
+    +-----------+
+    2 rows in set (0.02 sec)
+
+4.
+    select count(*) from pokemons p JOIN types t ON p.secondary_type = t.id WHERE t.name = 'Poison';
+    +----------+
+    | count(*) |
+    +----------+
+    |       31 |
+    +----------+
+    1 row in set (0.00 sec)
+
+5.
+    SELECT t.name, count(p.primary_type) FROM types t JOIN pokemons p ON p.primary_type = t.id GROUP BY p.primary_type;
+    +----------+-----------------------+
+    | name     | count(p.primary_type) |
+    +----------+-----------------------+
+    | Normal   |                    90 |
+    | Water    |                    95 |
+    | Grass    |                    59 |
+    | Rock     |                    38 |
+    | Fire     |                    38 |
+    | Ground   |                    29 |
+    | Poison   |                    27 |
+    | Bug      |                    61 |
+    | Electric |                    35 |
+    | Dragon   |                    22 |
+    | Steel    |                    19 |
+    | Dark     |                    24 |
+    | Fighting |                    25 |
+    | Psychic  |                    38 |
+    | Ghost    |                    19 |
+    | Fairy    |                    14 |
+    | Ice      |                    22 |
+    | Flying   |                     1 |
+    +----------+-----------------------+
+    18 rows in set (0.00 sec)
+
+6.
+    select pt.trainerID, count(pt.pokelevel) FROM pokemon_trainer pt WHERE pt.pokelevel = '100' GROUP BY pt.trainerID;
+
+7.
+    select p.name, count(pt.pokemon_id)=1 FROM pokemons p JOIN pokemon_trainer pt ON p.id = pt.pokemon_id GROUP BY p.name HAVING count(pt.pokemon_id) = 1;
+    +------------+------------------------+
+    | name       | count(pt.pokemon_id)=1 |
+    +------------+------------------------+
+    | Clawitzer  |                      1 |
+    | Barbaracle |                      1 |
+    | Tynamo     |                      1 |
+    | Rufflet    |                      1 |
+    | Lugia      |                      1 |
+    | Binacle    |                      1 |
+    | Malamar    |                      1 |
+    | Zekrom     |                      1 |
+    | Reshiram   |                      1 |
+    | Happiny    |                      1 |
+    | Zweilous   |                      1 |
+    | Swirlix    |                      1 |
+    | Spewpa     |                      1 |
+    +------------+------------------------+
+    13 rows in set (0.10 sec)
+
+PART FOUR:
+
+SELECT pokemons.name 'Pokemon Name', trainers.trainername 'Trainer Name', pokemon_trainer.pokelevel 'Level', pokemons.primary_type 'Primary Type', pokemons.secondary_type 'Secondary Type'
+    FROM pokemon_trainer
+    JOIN pokemons
+    ON pokemon_trainer.pokemon_id = pokemons.id
+    JOIN trainers
+    ON pokemon_trainer.trainerID = trainers.trainerID
+    JOIN types primary_type ON pokemons.primary_type = primary_type.id
+    JOIN types secondary_type ON pokemons.secondary_type = secondary_type.id
+    ORDER BY pokemon_trainer.pokelevel DESC;
+
+    SELECT pokemons.name 'Pokemon Name', trainers.trainername 'Trainer Name', pokemon_trainer.pokelevel 'Level', pokemons.primary_type 'Primary Type', pokemons.secondary_type 'Secondary Type'
+        ->     FROM pokemon_trainer
+        ->     JOIN pokemons
+        ->     ON pokemon_trainer.pokemon_id = pokemons.id
+        ->     JOIN trainers
+        ->     ON pokemon_trainer.trainerID = trainers.trainerID
+        ->     JOIN types primary_type ON pokemons.primary_type = primary_type.id
+        ->     JOIN types secondary_type ON pokemons.secondary_type = secondary_type.id
+        ->     ORDER BY pokemon_trainer.pokelevel DESC
+        ->     LIMIT 25;
+    +--------------+-----------------+-------+--------------+----------------+
+    | Pokemon Name | Trainer Name    | Level | Primary Type | Secondary Type |
+    +--------------+-----------------+-------+--------------+----------------+
+    | Swampert     | Teacher Kaede   |   100 |            2 |              6 |
+    | Blaziken     | Teacher Kaede   |   100 |            5 |             13 |
+    | Salamence    | Teacher Kaede   |   100 |           10 |             18 |
+    | Gardevoir    | Teacher Kaede   |   100 |           14 |             16 |
+    | Lanturn      | Teacher Lagron  |   100 |            2 |              9 |
+    | Jumpluff     | Teacher Lagron  |   100 |            3 |             18 |
+    | Latias       | Worker Bomber   |   100 |           10 |             14 |
+    | Crobat       | Worker Bomber   |   100 |            7 |             18 |
+    | Shedinja     | Worker Bomber   |   100 |            8 |             15 |
+    | Jirachi      | Worker Bomber   |   100 |           11 |             14 |
+    | Moltres      | Worker Kaster   |   100 |            5 |             18 |
+    | Slowbro      | Youngster Cole  |   100 |            2 |             14 |
+    | Sneasel      | Hunter♀ Bigon   |   100 |           12 |             17 |
+    | Ninjask      | Hunter♀ Bigon   |   100 |            8 |             18 |
+    | Metagross    | Hunter♀ Bigon   |   100 |           11 |             14 |
+    | Salamence    | Hunter♀ Bigon   |   100 |           10 |             18 |
+    | Tyranitar    | Hunter♂ Kolot   |   100 |            4 |             12 |
+    | Togetic      | Hunter♂ Kolot   |   100 |           16 |             18 |
+    | Gligar       | Hunter♂ Kolot   |   100 |            6 |             18 |
+    | Cacturne     | Hunter♂ Kolot   |   100 |            3 |             12 |
+    | Swampert     | Hunter♂ Kolot   |   100 |            2 |              6 |
+    | Starmie      | Hunter♂ Kolot   |   100 |            2 |             14 |
+    | Qwilfish     | Lady Charlotte  |   100 |            2 |              7 |
+    | Azumarill    | Lass Terry      |   100 |            2 |             16 |
+    | Wigglytuff   | Lass Terry      |   100 |            1 |             16 |
+    +--------------+-----------------+-------+--------------+----------------+
+    25 rows in set (0.07 sec)
