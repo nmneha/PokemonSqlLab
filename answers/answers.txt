@@ -1,0 +1,64 @@
+PART TWO :
+
+1. All types
+    SELECT * FROM types;
+    +----+----------+
+    | id | name     |
+    +----+----------+
+    |  1 | Normal   |
+    |  2 | Water    |
+    |  3 | Grass    |
+    |  4 | Rock     |
+    |  5 | Fire     |
+    |  6 | Ground   |
+    |  7 | Poison   |
+    |  8 | Bug      |
+    |  9 | Electric |
+    | 10 | Dragon   |
+    | 11 | Steel    |
+    | 12 | Dark     |
+    | 13 | Fighting |
+    | 14 | Psychic  |
+    | 15 | Ghost    |
+    | 16 | Fairy    |
+    | 17 | Ice      |
+    | 18 | Flying   |
+    +----+----------+
+    18 rows in set (0.02 sec)
+
+2.
+    select * from pokemons WHERE id = '45';
+    +----+-------+--------------+----------------+
+    | id | name  | primary_type | secondary_type |
+    +----+-------+--------------+----------------+
+    | 45 | Eevee |            1 |           NULL |
+    +----+-------+--------------+----------------+
+    1 row in set (0.01 sec)
+
+3.
+     SELECT count(*) from pokemons;
+    +----------+
+    | count(*) |
+    +----------+
+    |      656 |
+    +----------+
+    1 row in set (0.05 sec)
+
+4.
+    SELECT count(*) from types;
+    +----------+
+    | count(*) |
+    +----------+
+    |       18 |
+    +----------+
+    1 row in set (0.04 sec)
+
+5.
+    select count(secondary_type) from pokemons;
+    +-----------------------+
+    | count(secondary_type) |
+    +-----------------------+
+    |                   316 |
+    +-----------------------+
+    1 row in set (0.02 sec)
+
